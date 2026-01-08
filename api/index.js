@@ -9,7 +9,9 @@ const app = express(); // init express
 app.use(
   cors({
     origin: process.env.BASE_URL, // frontend origin
-    credentials: true, // penting supaya cookies bisa dikirim
+    credentials: true, // WAJIB untuk cookies
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 ); // supaya frontend bisa akses backend
 

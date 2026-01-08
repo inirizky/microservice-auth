@@ -41,9 +41,10 @@ export const userLogin = async (req, res) => {
     // Simpan token di HTTP Only cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // hanya HTTPS di production
-      maxAge: 24 * 60 * 60 * 1000, // 1 hari
-      sameSite: "none",
+      secure: true, // Wajib untuk production (HTTPS)
+      sameSite: "none", // PENTING: harus 'none' untuk cross-origin
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 hari
+      // JANGAN set domain jika beda domain dengan frontend
     });
 
     res.status(200).json({
