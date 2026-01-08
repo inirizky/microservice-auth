@@ -43,7 +43,7 @@ export const userLogin = async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // hanya HTTPS di production
       maxAge: 24 * 60 * 60 * 1000, // 1 hari
-      sameSite: "strict",
+      sameSite: "none",
     });
 
     res.status(200).json({
