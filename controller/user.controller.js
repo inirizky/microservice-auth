@@ -34,20 +34,16 @@ export const userLogin = async (req, res) => {
       username: usernameExists.username,
     };
 
+    // TAMBAHKAN BARIS INI UNTUK DEBUGGING
+    console.log("Mencoba membuat token dengan secret:", process.env.JWT_SECRET);
+
     const token = jwt.sign(user, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
 
-    // Simpan token di HTTP Only cookie
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // true di production
-      sameSite: "lax", // bisa tetap 'lax' karena sekarang pakai Authorization header
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 hari
-    });
-
     res.status(200).json({
       message: "Success Signin",
+      token: token,
       data: user,
     });
   } catch (error) {
